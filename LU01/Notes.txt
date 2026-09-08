@@ -75,3 +75,5 @@ Validation data: Structured like training data with an input and labels, this da
 Variance: The amount that the intended function of a machine learning model changes while it’s being trained. Despite being flexible, models with high variance are prone to overfitting and low predictive accuracy because they are reliant on their training data.
 Variation: Also called queries or utterances, these work in tandem with intents for natural language processing. The variation is what a person might say to achieve a certain purpose or goal. For example, if the intent is “pay by credit card,” the variation might be “I’d like to pay by card, please.”
 Weak AI: Also called narrow AI, this is a model that has a set range of skills and focuses on one particular set of tasks. Most AI currently in use is weak AI, unable to learn or perform tasks outside of its specialist skill set.
+
+Installed: New Programs, Docker, VM, Node.js, PyCharm
