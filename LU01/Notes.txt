@@ -77,3 +77,164 @@ Variation: Also called queries or utterances, these work in tandem with intents 
 Weak AI: Also called narrow AI, this is a model that has a set range of skills and focuses on one particular set of tasks. Most AI currently in use is weak AI, unable to learn or perform tasks outside of its specialist skill set.
 
 Installed: New Programs, Docker, VM, Node.js, PyCharm
+
+What is FOS?
+
+Free Open Source software, software that can be accessed, copied, modified in it's entirety by users. 
+New GenAI models are NOT FOS. Since they rely on their owner's servers and databases. It's not FOS because you can't openly get data on the AI models, even downloading it locally doesn't give you full control over the AI.
+
+"You're Holding it Wrong!!!"
+
+Prompt engineering isn't the silver bullet to kill all flaws in your ai workflows, but it can
+help you see better results more often. It improves consistency, but inaccuracies are inevitable
+
+T C R E I
+
+Task:
+ 	Persona: Who is the AI supposed to be?
+	Do NOT make monolithic tasks, split it up into different goals
+Context: 
+	Explain context to avoid assumptions, biases, let it know everything surrounding
+	the task
+	
+Reference: 
+	Provide data, examples, specific ideas, ideas from past prompts that the AI should imitate
+
+Evaluate: 
+	Review the output, does it meet your requirements.
+Iterate:
+	Feed the errors back to the AI and tell it what didn't meet requirements
+	See if you can refine the prompt to prevent future errors
+
+(Task: Context: Reference:) -- ( Evaluate: Iterate: )
+   Your Input Here ^^		AI's Input Here ^^
+
+
+"Make a diagram of the weather cycle"
+
+My refined prompt: 
+
+You are a 5th grade teacher and need to teach your students about the weather cycle. Make a circular flow chart that includes all of these steps in the water cycle: Precipitation,  Surface Runoff, Groundwater,  Transpiration, Evaporation,  and Condensation.  Each of these steps should be written in large text, with smaller text below as a short, one sentance explaination of the step in the water cycle. Each step should point to eachother with arrows in a circular design, in the order they occur. Make the visuals and descriptions age appropriate, not overly wordy or confusing. Output the diagram in a valid text format that i could edit it.
+
+
+AI Scheduling?
+
+Using the AI to build out your employee schedule *could* be useful, but unless you can do a better job making a generic document in sheets, I think it's better for the AI to do the busywork of formatting a blank schedule for you, then filling it out yourself with the temperamental data.
+
+My Prompt for Messy Data Project: 
+
+Hello! I am an employer for a company with many employees, looking to sort and uniformly format the raw data we recieved from our company survey. 
+
+The answers we collected from the survey fall into six different unique categories. Employee ID, Name, Department, Years at the Company, Favorite Food, and Hire Date.
+
+I want you to re-structure this survey's non-homogenus data into neat, identically capitalized, punctuated, and formatted responses. Make the responses uniform by refitting them, but don't replace the original message with something else. Please follow the following rules for each category of data:
+
+Employee ID: Each employee id should begin with a capital "E", followed by a single hyphen, then, their unique three digit employee number.
+
+Name: The name of the employee should be capitalized at the beginning of their first name and last name. any other random capitalization needs to be corrected. Structure the names as their last name followed by a comma, space, then their last name. If they do not have a last name, just include their first name without punctuation.
+
+Department: Make sure all departments are formatted correctly in their verbose title. No abreviations. If you are unsure what an abreviated title stands for, look for another employee who shares the non-abreviated department position and correct the abreviation. Again, all titles should start with a capital letter and avoid random puncuation/capitalization.
+
+Years at the Company: For years at the company, the format should be a number, space, and then the word "Years" or "Year" if there is only one. Correct any typed out words for numbers into their corresponding symbols. If this category is "null", their Years at the Company should say "Less Than A Year".
+
+Favorite Food: These responses can be nearly anything, but they must follow the rules of proper capitalization, and only ONE word. Remove any uncessary details about the food other than the noun describing it. 
+
+Hire Date: Due to an internal server error, exact hire dates are missing for most employees.  For employees who DO have their date of hiring, please abreviate it to only include the month and the year, Please use the proper capitalized titles of the months of the year, no numbers or abreviations. For employees who do not have an exact hire date, estimate just the year they were hired by subtracting the "Years at the Company" from the current year as of the survey, 2025.
+
+The raw survey data is attached in a csv. Please reformat it following all of the category rules, and return the new copy to me. Thank you.
+
+
+Text to Speech: Using a text based prompt to create audio
+Voice Cloning: Using audio training data to imitate a voice, 
+Text to Video: Creating a video based off of a text prompt
+Image to Video: Creating a video out of a static image, 
+
+
+
+Editing my base prompt for AI resume
+
+POST 1: https://www.dice.com/job-detail/a0a9b6a9-98c4-42b0-b502-896b396076c6
+
+POST 2: https://www.dice.com/job-detail/b8345cd4-7a1a-4112-b83f-83504a03d65b
+
+POST 3: https://www.dice.com/job-detail/a8d948a6-6a67-4200-aee9-85e3ce2f5b92
+
+------ TEMPLATE ------
+
+You are an expert resume writer and career coach. I need you to tailor my
+resume to a specific job posting while
+maintaining accuracy and authenticity.
+MASTER RESUME:
+
+JOB POSTING:
+
+INSTRUCTIONS:
+1. Analyze the job requirements and identify the most important skills and
+experiences
+2. Reorder and emphasize relevant experiences from my master resume
+3. Adjust bullet points to highlight achievements that match the job
+requirements
+4. Incorporate relevant keywords naturally throughout the resume
+5. Maintain all factual information - do not fabricate experiences
+6. Keep the same overall structure and length
+Please provide the tailored resume and explain the key changes you made.
+
+--- TEMPLATE ---
+--- MY EDIT ---
+
+You will by my client's professional resume writer, your goal is to take my client's generalized professional resume, and re-tailor it to a specific job posting while maintaining accuracy and authenticity.
+
+MASTER RESUME:
+
+JOB POSTING:
+
+INSTRUCTIONS:
+
+Task #1 Analysis of Job Post:
+
+#1 Part A: Your task is to skim the job posting and find the top skills, talents, or pre-requisite experience/knowledge that the employer requires for this position. 
+
+#1 Part B: Then, skim the job posting again to create a sub-list of the same criteria as #1 Part A, that aren't necessary for the job, but are preferred.
+
+#1 Part C: Skim the job posting for the job description, and make a list of the key responsibilities and tasks my client would need to be able to fulfill to hold this position.
+
+#1 Part D: Skim the job posting now to create a list of the Company's Culture values. Look for specific keywords that describe the company culture and desired personality attributes of candidates.
+
+Task #2 Refine the Resume:
+
+Reminder: In this step, you will be examining and cross-comparing my client's information provided in the resume attached to the job posting. Be sure to be diligent and do not conflate, assume, or infer anything not written out verbatim on my client's resume. Accuracy is key.
+
+#2 Part A: Examine my client's resume, and use cross-comparison to find any of my client's listed relevant NECESSARY skills/experience from #1 Part A, re-order the skills in my client's resume to highlight any matching skills/experience. Also, compare my client's resume to see if any of their skills/experience would match with the job's key responsibilities from Part #1 C. These skills should be given TOP priority when re-ordering my clients resume.
+
+#2 Part B: Re-examine my client's resume, and use cross-comparison to find any of my client's listed PREFERRED relevant skills/experience from #1 Part B, and re-order the skills in my client's resume to highlight any matching skills/experience. ( Please Note: When creating the new ordered hierarchy of skills, REQUIRED skills take precedent over PREFERRED skills in order.)
+
+#2 Part C: Re-examine my client's resume, and use cross-comparison to find any of my client's listed values & personal attributes from Part #1 D. Rephrase wording in my client's personal descriptions that matches with the company values to highlight them.
+
+Task #3 Refine
+
+Reminder: In this step, you will NOT be re-ordering, but you MAY rephrase the client's resume. This step is purely for polish and double checking your work.
+
+#3 Part A: Fact check the new re-ordered resume with the original resume attached. Are there any inconsistencies? Any misleading exaggerations? Correct these and fix any gaps that this process would create in our resume, re-ordering is allowed in this step only in the case of an explicit factual inaccuracy.
+
+#3 Part B: Please be direct and correct any "theatrical" or "exaggerative" tone errors to a more professional and "matter-of-fact" type of speech. Keep the language concise, do not use too many descriptive words. The ideal is that the client's new resume matches the same approximate length as the old one.
+
+#3 Part C: Format all lists with simple bullets and use proper professional formatting to match the original shape and structure in the original attached client's resume. Do not add any additional media, only simple geometric lines and shapes.
+
+Once you have completed all Tasks 1 - 3, Reply by sharing a brief summary of the actions you took to complete the tasks according to the instructions I've given, and attach the new resume to your response in the same file type as the original. Thank you.
+
+
+--- Cover Prompt ---
+
+( Using previous context )
+For the final part of this task, I need you to create three unique, compelling cover letters. For each  of the three new tailored-resumes:
+
+INSTRUCTIONS:
+1. Draft the cover letter to professional and concise, with one page maximum.
+2. In a first-person tone, state that the client is looking to apply for the position they are posting.
+3. Highlight the client's key skills and knowledge that makes them qualified for the positions expectations and responsibilities.
+4. Use a professional tone and formal business letter structure.
+5. Cross compare the letter to the resume before finishing and be sure no skills were exaggerated, inferred, assumed, or invented.
+6. The letter should express the client's enthusiasm for the role and the company.
+
+Please provide the tailored cover letter.
+
