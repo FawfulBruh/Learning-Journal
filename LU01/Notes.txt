@@ -401,3 +401,27 @@ PLEASE JUST TAP THE SCREEN
 TWICE IM BEGGING
 
 I DONT WANNA DIE
+
+
+----------------------------------------------------------
+Motherboard:  Doesn't have much to it, it just connects everything together, like a traffic junction for 
+			wires and cables
+CPU: Does all the computation via millions of tiny transistors
+PCIE Express: An internal super fast cable that connects everything to the CPU for math
+Peripherals: External "booster" parts that connect to the CPU via the PCIE "lanes". (Storage, GPU, Network Card)
+
+RAM: Random Access memory, the PC's "short term" memory, much much faster than long term storage
+Storage: Hard Storage, slower than RAM, but useful for permenant file storage "long term memory".
+NVME SSD: Fastest solid state drive, But most expensive per Gig
+Hard Disk Drive: Hard drives that are connected via SATA cables, which are slower to retrieve data than hard drives, but cheaper per Gig
+Tape Drives: Basically work like cassete tape, works like an archival storage, mostly "write once"
+
+----------------------------
+Virtualization: A virtualizes a computer's OS into a seperate "virtual" environment/operating system
+Hypervisor:  A peice of software that runs above a peice of software that pulls resources from the physical to the virtual environment
+	Type 1: BM Bare Metal hypervisor, runs directly on-top of hardware to run the virtual environmnent
+	Type 2: A Layer of Host OS that exists inbetween the the hypervisor and the hardware, it's less efficient than Type 1, but can use OS.
+( We're using type 2, because we need an OS )
+
+VM: Virtual Machine, a software based computer, completely independant Operating Systems that borrow system resources from the host.
+Sandbox: A type of virtual machine that can't communicate with other VMs, can only communicate with the host.
