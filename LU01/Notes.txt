@@ -425,3 +425,7 @@ Hypervisor:  A peice of software that runs above a peice of software that pulls 
 
 VM: Virtual Machine, a software based computer, completely independant Operating Systems that borrow system resources from the host.
 Sandbox: A type of virtual machine that can't communicate with other VMs, can only communicate with the host.
+
+How to get Docker desktop or Podman to work on my computer?????
+
+I genuinely am still stuck on this step
