@@ -637,3 +637,177 @@ Also in My PacMan Project
         Oh screenshotting reset the program so I quit
         Final score 38,265 points
 
+
+
+
+
+
+        	For my Final Project:    Here's my Prompt Coversation with Claude:
+
+        	Hey Claude. I need you to make a simple Database program for me.
+        	The goal of this application is to make a small pogram using Dotnet, C# and Entity Framework to make a SQLite database.
+        	The database schema is as follows: 
+        	The first DbSet is titles AI_Videos
+        	and the Second is titled AI_Images
+        	Each Db set should reference a set of AI_Video and AI_Image objects. The parameters of these objects are as follows:
+
+        	AI_Video: 
+        	id Index: // For counting/parsing, primary key
+        	string Word // The word you used to find this video
+        	string Title // Title of the video
+        	string Description // The video description
+        	string Link // A YouTube link to the video
+        	string Username // The channel's YouTube username
+
+        	AI_Images:
+        	id Index: // For counting/parsing, primary key
+        	string Word // The word you used to find this image
+        	string link // an http link of the image address
+
+        	Now, I want you to create a seeding script to seed this database.
+        	To get the data we need, I will give you a random word. 
+        	(This corresponds to the word property in the classes)
+        	Use this word to find ONE random video and ONE random image
+        	related to the word on the internet. 
+
+        	Use the Image & Video you find to fill out the parameters in your seeding script.
+        	I will now give you the random words:
+        	"Cat". "Sailboat". "Lightbulb". "Cloud". "Smiley"
+
+        	I would also like you to add some HttpGet and HttpPost requests with validation to add new AI_Videos and AI_Images to each respective database. Integrate Scalar Api Core to do so, so I can validate the database requests manually to proofread your work.
+
+        	Remeber we are using entity framework with dotnet, and we are using a table per class hierarchy.
+
+        	----- Claude's Response ----
+
+        	Wrapping up: I've written the project and am packaging it for you now.
+
+        	I built the project and zipped it as AiMediaDb.zip, but I haven't compiled or run it. My sandbox has no network access, so I couldn't restore packages. Run `dotnet run` in the project folder and open `/scalar` (the root URL redirects there). The first run creates `ai_media.db` and seeds it.
+
+        	**Table per hierarchy.** AI_Video and AI_Image both inherit from an abstract `AI_Media` base class, which holds `Id`, `Word` and `Link`. They share one `AI_Media` table with a `MediaType` discriminator column. The two DbSets are `AI_Videos` and `AI_Images`. I moved `Link` into the base class because both of your classes have it, and sibling types would otherwise get separate columns for it. I also capitalised `link` to `Link` to match C# convention.
+
+        	**Seed data.** One video and one image per word:
+
+        	| Word | Video | Image (Wikimedia Commons) |
+        	|---|---|---|
+        	| Cat | Smosh, "EVERY CAT EVER" | Brown_tabby_cat_2018_G1.jpg |
+        	| Sailboat | Yeadon Sailing Club, "Beginners Guide to Sailing" | Sailboats-696079.jpg |
+        	| Lightbulb | ScienceABC, "How Does a Light Bulb Work?" | Livermore_Centennial_Light_Bulb.jpg |
+        	| Cloud | NWSAlbuquerque, "Clouds 101: A Tutorial on Cloud Types" | Cumulus_clouds_in_fair_weather.jpeg |
+        	| Smiley | randomvids300, "Green Day - Boulevard of Broken Dreams - Smiley Face" | Smiley.svg |
+
+        	I picked these from search results, so please click through each one in Scalar to check they still work:
+
+        	- **Video pages:** I couldn't open the YouTube pages themselves. The video descriptions in the seeder are my own short summaries, not YouTube's text.
+        	- **Smiley video:** this is the shakiest pick. The title was truncated in my source, and I'm not fully sure the channel attribution is right.
+        	- **Image links:** they use Commons `Special:FilePath` addresses, which redirect to the real file, so they don't depend on Commons' hashed folders.
+
+        	**Endpoints** (each has a matching Scalar entry):
+
+        	- `GET /api/videos` and `GET /api/images`, with an optional `?word=` filter
+        	- `GET /api/videos/{id}` and `GET /api/images/{id}`, returning 404 if the id is missing or belongs to the other type
+        	- `POST /api/videos` and `POST /api/images`, returning 201 on success
+
+        	**Validation on POST:**
+
+        	- `Word`, `Link` and, for videos, `Title` and `Username` are required.
+        	- Fields have length limits.
+        	- Video links must be `youtube.com/watch?v=…` or `youtu.be/…`.
+        	- Image links must be absolute http or https URLs.
+        	- Invalid data returns 400, and a link that's already in the table returns 409.
+        	- Clients can't set `Id`.
+
+        	**Setup notes:**
+
+        	- **SDK:** the project targets `net10.0` with floating package versions. On an older SDK, change it to `net9.0` and the `9.0.*` versions.
+        	- **Schema creation:** I used `EnsureCreated()` plus a seeder that only fills empty tables, rather than migrations, to keep it small. If your class needs migrations, swap in `dotnet ef migrations add` and `Database.Migrate()`.
+
+
+        	---- My Response ---
+
+        	( I forgot to integrate AI generated images/videos, so I decided to ask it to recreate the seeding script. )
+
+        	Ok, could you send me a seeding script that replaces all of the pre-seeded "random word" videos and images with new ones? I want to specifically filter the random word image and videos to just feature AI-Generated videos and images. You DO NOT have to generate these yourself, just sleuth on the web for any images related to the aforementioned words that are also tagged as AI generated.
+
+        	I want these new images and videos to replace the seeding script and overwrite our current Db.
+
+        	--- Claude's Response ---
+
+        	I've rewritten the seeder and I'm sending it over now.
+
+        	I replaced the images with AI-generated ones, but I could not find AI-generated videos, so the video part is not done. I haven't compiled or run any of this.
+
+        	The two changed files are DbSeeder.cs and Program.cs. AiMediaDb.zip has the whole project with both already applied.
+
+        	To overwrite your current database, run `dotnet run -- --reseed-ai`. That deletes the stored images and inserts the new set inside a transaction. A plain `dotnet run` only seeds tables that are empty, so it won't wipe anything you've added through POST.
+
+        	**Images:**
+
+        	| Word | Source | What it is |
+        	|---|---|---|
+        	| Cat | Wikimedia Commons, Stable Diffusion category | "AI created image of a witch and anthropomorphic cat" |
+        	| Lightbulb | Wikimedia Commons, Stable Diffusion category | "A man having an idea before the light bulp" |
+        	| Sailboat | Pixabay, labelled "AI modified or generated" | AI-generated sailboat illustration |
+        	| Cloud | Pixabay, labelled "AI generated" | "Heaven, Clouds, Cloud Shape" illustration |
+        	| Smiley | Pixabay, labelled "AI generated" | "Ai Generated, Smiley Face, Smiley" |
+
+        	Some caveats on these:
+        	- **Smiley:** the link is the Pixabay page, not a direct image address. The page timed out when I tried to open it, so I couldn't get the file URL. Replace it with the direct link if you need one.
+        	- **Pixabay hotlinking:** Pixabay may block hotlinked images, so the Sailboat and Cloud links could show up broken in a browser.
+        	- **Cat and Lightbulb:** the images show a witch with a cat and a man with a light bulb. They fit the words only loosely.
+
+        	**Videos:** My search tool rarely returned YouTube pages, and never the "altered or synthetic content" label that marks a video as AI-generated. I wasn't willing to guess video IDs and call them AI-generated. The video list in `DbSeeder.cs` is therefore empty, and `--reseed-ai` leaves your existing videos untouched (it prints a note saying so) rather than deleting them and putting nothing back.
+
+        	To finish the videos, either send me five YouTube links you know are AI-generated and I'll fill in the titles, descriptions and channel names, or tell me to use Pixabay or Coverr video pages. Those sites label AI-generated clips clearly, but they aren't YouTube, so I'd loosen the YouTube-only check on video links.
+
+
+        	--- My Response ---
+
+        	( Claude seemed to have issues finding the images and videos to use for some reason. Manually found some AI videos for it to use and asked it to re-seed the database with these:)
+        	Alright. I found some  AI generated videos for you:
+        	Please update the reseeding command to include these links:
+
+        	Cat Video: https://youtu.be/xJomaE58h5I
+        	Cat Image: https://imgs.search.brave.com/mqqrQV30LVLN4EwherLOkOvQfWp8f1AVJ_Z-L-BQUgc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pY2hl/Zi5iYmNpLmNvLnVr/L2ltYWdlcy9pYy80/ODB4bi9wMGprY3Qy/OS5qcGcud2VicA
+
+        	Lightbulb Video: https://youtu.be/MY-QxnxMiUs
+        	Lightbulb Image: https://imgs.search.brave.com/eMWVp9NgDdJC5k3esCykbIkNzrsRCdvxZiUrLIf0Uqk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAyMy8x/MC8xOS8xMi80NS9h/aS1nZW5lcmF0ZWQt/ODMyNjYyOF82NDAu/anBn
+
+        	Smiley Video: https://youtu.be/IAoa2WlA-PI
+        	Smiley Image: https://imgs.search.brave.com/t38Nt-Ap8eEMPeMBc-XNlM5-kMFf6MjNFYS0zK98kpU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAyNC8w/My8xNC8wOC81NC9h/aS1nZW5lcmF0ZWQt/ODYzMjczMF8xMjgw/LnBuZw
+
+        	Sailboat Video: https://youtu.be/RBa5j68sYy4
+        	Sailboat Image: https://imgs.search.brave.com/tPfMFpLara-bkJ4n6O4E1YqP5zcYJy3pw7Gax5C_ts4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/bWFnbmlmaWMuY29t/L3ByZW1pdW0tcGhv/dG8vYWktZ2VuZXJh/dGVkLWlsbHVzdHJh/dGlvbi1zYWlsYm9h/dC1zYWlsaW5nLXRy/YW5xdWlsLW9jZWFu/LXJlZC1zdW5zZXRf/NjY1MzQ2LTY4Njk4/LmpwZz9zZW10PWFp/c190ZXN0X2Imdz03/NDAmcT04MA
+
+        	Cloud Video: https://youtu.be/fT4Y2NTGRLE
+        	Cloud Image: https://imgs.search.brave.com/KTlAze_0bZ83lFe4nczq0yugSNVdnMzf9A6FaM2iLyk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMzcv/MTQyLzM0Ni9zbWFs/bC9haS1nZW5lcmF0/ZWQtY2xvdWRzLW92/ZXItdGhlLW9jZWFu/LXBob3RvLmpwZw
+
+        	Now for the images, I copied the raw image address which uses my browser. I would like you to use the image address just to find these images, then copy them as a universal linked format that can work being displayed on a web page or sent to a different OS and not cause compatibility issues.
+
+        	--- Claude's Response ---
+
+        	Finishing up now: the seeder is updated, so I'm sending it over.
+
+        	I've updated `DbSeeder.cs` with your five videos and five images, and `dotnet run -- --reseed-ai` now replaces both tables. The video titles, descriptions and channel names are still placeholders, and I haven't compiled or run any of this.
+
+        	**Images:** The Brave links are just the real address encoded inside them. I decoded them to the plain https source URLs, so they no longer depend on your browser:
+
+        	| Word | Source |
+        	|---|---|
+        	| Cat | ichef.bbci.co.uk |
+        	| Sailboat | img.magnific.com |
+        	| Lightbulb | cdn.pixabay.com |
+        	| Cloud | static.vecteezy.com |
+        	| Smiley | cdn.pixabay.com |
+
+        	I made two small edits to improve compatibility:
+        	- **Cat:** the original ended in `.jpg.webp`, which older apps and operating systems can't always display, so I changed it to `.jpg`.
+        	- **Sailboat:** I dropped the tracking query (`?semt=...&w=740&q=80`) from the end.
+
+        	I couldn't test any of these links. If the Cat or Sailboat image shows up broken, put the original text back (add `.webp` to the Cat link, restore the query string on the Sailboat one). Pixabay and Vecteezy sometimes block hotlinked images too. If any of them do, the fully portable fix is to download the files and host them yourself.
+
+        	**Videos:** All five links are in the seeder, and they pass the YouTube link check. YouTube blocked my attempts to read them, so I couldn't get the real titles, descriptions or channel names. Each entry has a generic title like "AI-generated Cat video", a one-line description, and `Username = "UNKNOWN"`. A TODO comment marks the spot. Send me the five titles and channel names, or edit them in the file, and I'll fill them in.
+
+        	---- End Conversation ---
+
+        	I can literally edit that data myself now in the seeding script, the majority of the work is done.
